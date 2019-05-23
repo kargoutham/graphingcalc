@@ -1,9 +1,14 @@
 import java.util.*;
 import java.awt.Point;
-
-public class graphingcalc {
+import java.awt.Graphics;
+import javax.swing.JFrame;
+public class graphingcalc extends JFrame{
+	 public static ArrayList<Point> coordinates = new ArrayList<Point>();
+//	 int max = getMax(coordinates);
 
 	public static void main(String[] args) {
+		
+		
 		Scanner input = new Scanner(System.in);
 		System.out.println("Equation: y = ");
 		String equation = input.nextLine();
@@ -14,25 +19,11 @@ public class graphingcalc {
 		int startVal = Integer.parseInt(start);
 		int endVal = Integer.parseInt(end);
 		for(int i = startVal ; i<=endVal;i++) {
-			System.out.println(calculate(equation,i));
-		}
-		while(input.nextLine().toLowerCase() !="stop") {
-			System.out.println("Equation: y = ");
-			 equation = input.nextLine();
-			
-			System.out.println("Start Value: x = ");
-			 start = input.nextLine();
-			 
-			System.out.println("End Value: x = ");
-			 end = input.nextLine();
-			 
-			 startVal = Integer.parseInt(start);
-			 endVal = Integer.parseInt(end);
-			for(int i = startVal ; i<=endVal;i++) {
-				System.out.println(calculate(equation,i));
-			}
-		}
+			coordinates.add(calculate(equation,i));
+//			System.out.println(calculate(equation,i));
+		}		
 		System.out.println("Finished!");
+		graphingcalc c = new graphingcalc();
 	}
 	
 	
@@ -108,5 +99,29 @@ public class graphingcalc {
 		return p;
 	
 	}
+	public int findMax(ArrayList<Point> coordinates) {
+		int max = 0;
+		for(Point p: coordinates) {
+			if((int)p.getY()>max) {
+				max = (int)p.getY();
+			}
+		}
+		return max;
+	}
+	public graphingcalc() {
+		setTitle("Graph");
+		setSize(1000,1000);
+		setVisible(true);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+	}
+
+
+	public void paint(Graphics g) {
+		for(int i = 0; i<coordinates.size();i++) {
+			g.drawLine((int)coordinates.get(i).getX(), (int)coordinates.get(i).getY(), (int)coordinates.get(i+1).getX(), (int)coordinates.get(i+1).getY());
+		}
+	}
+	
+
 
 }
