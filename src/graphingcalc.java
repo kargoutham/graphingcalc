@@ -3,12 +3,11 @@ import java.awt.Point;
 import java.awt.Graphics;
 import javax.swing.JFrame;
 public class graphingcalc extends JFrame{
-	 public static ArrayList<Point> coordinates = new ArrayList<Point>();
-//	 int max = getMax(coordinates);
-
+	public static ArrayList<Point> coordinates = new ArrayList<Point>();
+	
 	public static void main(String[] args) {
 		
-		
+		int max = 0;
 		Scanner input = new Scanner(System.in);
 		System.out.println("Equation: y = ");
 		String equation = input.nextLine();
@@ -18,12 +17,13 @@ public class graphingcalc extends JFrame{
 		String end = input.nextLine();
 		int startVal = Integer.parseInt(start);
 		int endVal = Integer.parseInt(end);
-		for(int i = startVal ; i<=endVal;i++) {
+		for(int i = startVal ; i<=1000;i+=1000/endVal) {
 			coordinates.add(calculate(equation,i));
+			max = findMax(coordinates);
 //			System.out.println(calculate(equation,i));
 		}		
-		System.out.println("Finished!");
-		graphingcalc c = new graphingcalc();
+		System.out.println(max);
+		graphingcalc c = new graphingcalc(max);
 	}
 	
 	
@@ -99,7 +99,7 @@ public class graphingcalc extends JFrame{
 		return p;
 	
 	}
-	public int findMax(ArrayList<Point> coordinates) {
+	public static int findMax(ArrayList<Point> coordinates) {
 		int max = 0;
 		for(Point p: coordinates) {
 			if((int)p.getY()>max) {
@@ -108,9 +108,9 @@ public class graphingcalc extends JFrame{
 		}
 		return max;
 	}
-	public graphingcalc() {
-		setTitle("Graph");
-		setSize(1000,1000);
+	public graphingcalc(int y) {
+		setTitle("Graph"); 
+		setSize(1000,y);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
