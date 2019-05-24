@@ -44,10 +44,10 @@ public class graphingcalc extends JFrame{
 					slope = 1;
 				}
 				yint = Double.parseDouble(equation.substring(equation.indexOf("+")+2, equation.length()));
-				System.out.println("slope: "+slope+"yint: "+yint);
+//				System.out.println("slope: "+slope+"yint: "+yint);
 				
 			}
-			if(equation.contains("-")) {
+			else if(equation.contains("-")) {
 				try {
 				slope = Double.parseDouble(equation.substring(0, equation.indexOf("x")));
 				}catch(Exception e) {
@@ -55,7 +55,7 @@ public class graphingcalc extends JFrame{
 				}
 				yint = Double.parseDouble(equation.substring(equation.indexOf("-")+2, equation.length()));
 				yint*=-1;
-				System.out.println("slope: "+slope+"yint: "+yint);
+//				System.out.println("slope: "+slope+"yint: "+yint);
 				
 			}else {
 				try {
@@ -64,7 +64,7 @@ public class graphingcalc extends JFrame{
 						slope = 1;
 					}
 				yint = 0;
-				System.out.println("slope: "+slope+"yint: "+yint);
+//				System.out.println("slope: "+slope+"yint: "+yint);
 			}
 			y = slope*x + yint;
 			p.setLocation((int)x,(int)y);
@@ -78,9 +78,9 @@ public class graphingcalc extends JFrame{
 					}
 				yint = Integer.parseInt(equation.substring(equation.indexOf("+")+2, equation.length()));
 				power = Double.parseDouble(equation.substring(equation.indexOf("^")+1, equation.indexOf("+")-1));
-				System.out.println("slope: "+slope+"yint: "+yint+"power: "+power);
+//				System.out.println("slope: "+slope+"yint: "+yint+"power: "+power);
 			}
-			if(equation.contains("-")) {
+			else if(equation.contains("-")) {
 				try {
 				slope = Double.parseDouble(equation.substring(0, equation.indexOf("x")));
 				}catch(Exception e) {
@@ -89,7 +89,7 @@ public class graphingcalc extends JFrame{
 				yint = Integer.parseInt(equation.substring(equation.indexOf("-")+2, equation.length()));
 				yint*=-1;
 				power = Double.parseDouble(equation.substring(equation.indexOf("^")+1, equation.indexOf("-")-1));
-				System.out.println("slope: "+slope+"yint: "+yint+"power: "+power);
+//				System.out.println("slope: "+slope+"yint: "+yint+"power: "+power);
 			
 			}else {
 				try {
@@ -99,7 +99,7 @@ public class graphingcalc extends JFrame{
 					}
 				yint = 0;
 				power = Double.parseDouble(equation.substring(equation.indexOf("^")+1, equation.length()));
-				System.out.println("slope: "+slope+"yint: "+yint+"power: "+power);
+//				System.out.println("slope: "+slope+"yint: "+yint+"power: "+power);
 			}
 			y = slope*(Math.pow(x, power)) + yint;
 			p.setLocation((int)x,(int)y);
