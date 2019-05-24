@@ -132,13 +132,23 @@ public class graphingcalc extends JFrame{
 		for(int i = 0;i<newCoordinates.size();i++) {
 			newCoordinates.get(i).setLocation((int)(coordinates.get(i).getX()*scaleX)-minX,1000-(int)((coordinates.get(i).getY())*scaleY));
 		}
-		
+//		g.drawLine(20,0,20,850);   //axis
+//		g.drawLine(20,850,1000,850);
 		
 		
 		for(int i = 0; i<coordinates.size()-1;i++) {
 				g.drawLine((int)newCoordinates.get(i).getX(), (int)newCoordinates.get(i).getY(), (int)newCoordinates.get(i+1).getX(), (int)newCoordinates.get(i+1).getY());
 			//			g.drawLine((int)(coordinates.get(i).getX()*scaleX)-minX, 1000-(int)((coordinates.get(i).getY())*scaleY), (int)(coordinates.get(i+1).getX()*scaleX)-minX, 1000-(int)((coordinates.get(i+1).getY())*scaleY));
 		}
+		for(int i = 0; i<coordinates.size();i++) {
+			g.drawLine((int)newCoordinates.get(i).getX(), 0, (int)newCoordinates.get(i).getX(), 1000);
+					
+		}
+		for(int i = 0; i<coordinates.size();i++) {
+			g.drawLine(0, (int)newCoordinates.get(i).getY(), 1000, (int)newCoordinates.get(i).getY());
+					
+		}
+		
 		
 	}
 	
