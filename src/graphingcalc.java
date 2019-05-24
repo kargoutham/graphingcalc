@@ -6,6 +6,7 @@ public class graphingcalc extends JFrame{
 	public static ArrayList<Point> coordinates = new ArrayList<Point>();
 	
 	
+	
 	public static void main(String[] args) {
 		
 		int max = 0;
@@ -127,9 +128,16 @@ public class graphingcalc extends JFrame{
 		double scaleY = 1000/(coordinates.get(coordinates.size()-1).getY()-coordinates.get(0).getY());
 		double scaleX = 1000/(coordinates.get(coordinates.size()-1).getX()-coordinates.get(0).getX());
 		int minX = (int)coordinates.get(0).getX();
+		ArrayList<Point> newCoordinates = new ArrayList<Point>(coordinates);
+		for(int i = 0;i<newCoordinates.size();i++) {
+			newCoordinates.get(i).setLocation((int)(coordinates.get(i).getX()*scaleX)-minX,1000-(int)((coordinates.get(i).getY())*scaleY));
+		}
+		
+		
 		
 		for(int i = 0; i<coordinates.size()-1;i++) {
-			g.drawLine((int)(coordinates.get(i).getX()*scaleX)-minX, 1000-(int)((coordinates.get(i).getY())*scaleY), (int)(coordinates.get(i+1).getX()*scaleX)-minX, 1000-(int)((coordinates.get(i+1).getY())*scaleY));
+				g.drawLine((int)newCoordinates.get(i).getX(), (int)newCoordinates.get(i).getY(), (int)newCoordinates.get(i+1).getX(), (int)newCoordinates.get(i+1).getY());
+			//			g.drawLine((int)(coordinates.get(i).getX()*scaleX)-minX, 1000-(int)((coordinates.get(i).getY())*scaleY), (int)(coordinates.get(i+1).getX()*scaleX)-minX, 1000-(int)((coordinates.get(i+1).getY())*scaleY));
 		}
 		
 	}
