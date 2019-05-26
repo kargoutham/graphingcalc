@@ -125,19 +125,38 @@ public class graphingcalc extends JFrame{
 
 
 	public void paint(Graphics g) {
-		double scaleY = 1000/(coordinates.get(coordinates.size()-1).getY()-coordinates.get(0).getY());
-		double scaleX = 1000/(coordinates.get(coordinates.size()-1).getX()-coordinates.get(0).getX());
+		
+		
+		
 		int minX = (int)coordinates.get(0).getX();
+		int minY = (int)coordinates.get(0).getY();
+		for(int i = 0;i<coordinates.size();i++) {
+			if((int)coordinates.get(i).getY()<minY) {
+				minY = (int)coordinates.get(i).getY();
+			}
+		}
+		int maxY = (int)coordinates.get(0).getY();
+		for(int i = 0;i<coordinates.size();i++) {
+			if((int)coordinates.get(i).getY()>maxY) {
+				maxY = (int)coordinates.get(i).getY();
+			}
+		}
+		double scaleY = 1000/(maxY-minY);
+		double scaleX = 1000/(coordinates.get(coordinates.size()-1).getX()-coordinates.get(0).getX());
+//		System.out.println(scaleY);
 		ArrayList<Point> newCoordinates = new ArrayList<Point>(coordinates);
 		for(int i = 0;i<newCoordinates.size();i++) {
-			newCoordinates.get(i).setLocation((int)(coordinates.get(i).getX()*scaleX)-minX,1000-(int)((coordinates.get(i).getY())*scaleY));
+			newCoordinates.get(i).setLocation((int)(coordinates.get(i).getX()-minX)*scaleX,1000-(int)((coordinates.get(i).getY()-minY)*scaleY));
+//			System.out.println(newCoordinates.get(i));
 		}
-//		g.drawLine(20,0,20,850);   //axis
-//		g.drawLine(20,850,1000,850);
+
+//		g.drawLine(500,0,500,1000);   //axis
+//		g.drawLine(0,500,1000,500);
 		
 		
 		for(int i = 0; i<coordinates.size()-1;i++) {
-				g.drawLine((int)newCoordinates.get(i).getX(), (int)newCoordinates.get(i).getY(), (int)newCoordinates.get(i+1).getX(), (int)newCoordinates.get(i+1).getY());
+//			System.out.println(coordinates.get(i));	
+			g.drawLine((int)newCoordinates.get(i).getX(), (int)newCoordinates.get(i).getY(), (int)newCoordinates.get(i+1).getX(), (int)newCoordinates.get(i+1).getY());
 			//			g.drawLine((int)(coordinates.get(i).getX()*scaleX)-minX, 1000-(int)((coordinates.get(i).getY())*scaleY), (int)(coordinates.get(i+1).getX()*scaleX)-minX, 1000-(int)((coordinates.get(i+1).getY())*scaleY));
 		}
 		for(int i = 0; i<coordinates.size();i++) {
