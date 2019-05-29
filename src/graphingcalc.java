@@ -20,8 +20,8 @@ public class graphingcalc extends JFrame{
 		int startVal = Integer.parseInt(start);
 		int endVal = Integer.parseInt(end);
 		for(int i = startVal ; i<=endVal;i++) {
+			
 			coordinates.add(calculate(equation,i));
-
 			System.out.println(calculate(equation,i));
 		}		
 //		System.out.println(max);
