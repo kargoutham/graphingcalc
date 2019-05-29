@@ -114,12 +114,20 @@ public class graphingcalc extends JFrame{
 				int c = Integer.parseInt(equation.substring(4,5));
 				y = (int)(a*Math.pow(x, 2) + b*Math.pow(x, 1) + c);
 			}
-			else {
+			else if (numSpaces == 3){
 				int a = Integer.parseInt(equation.substring(0,1));
 				int b = Integer.parseInt(equation.substring(2,3));
 				int c = Integer.parseInt(equation.substring(4,5));
 				int d = Integer.parseInt(equation.substring(6,7));
 				y = (int)(a*Math.pow(x, 3) + b*Math.pow(x, 2) + c*Math.pow(x, 1)+d);
+			}
+			else {
+				int a = Integer.parseInt(equation.substring(0,1));
+				int b = Integer.parseInt(equation.substring(2,3));
+				int c = Integer.parseInt(equation.substring(4,5));
+				int d = Integer.parseInt(equation.substring(6,7));
+				int e = Integer.parseInt(equation.substring(8,9));
+				y = (int)(a*Math.pow(x, 4) + b*Math.pow(x, 3) + c*Math.pow(x, 2)+d*Math.pow(x, 1)+e);
 			}
 			
 			p.setLocation((int)x,(int)y);
