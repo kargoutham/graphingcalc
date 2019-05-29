@@ -10,7 +10,7 @@ public class graphingcalc extends JFrame{
 	public static void main(String[] args) {
 		
 		Scanner input = new Scanner(System.in);
-		System.out.println("NOTE: If polynomial, write in this form: A B C, which is Ax^2 + Bx + C");
+		System.out.println("NOTE: If polynomial, write in this form: \"A B C\" ->  Ax^2 + Bx + C");
 		System.out.println("Equation: y = ");
 		String equation = input.nextLine();
 		System.out.println("Start Value: x = ");
