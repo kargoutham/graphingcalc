@@ -9,8 +9,8 @@ public class graphingcalc extends JFrame{
 	
 	public static void main(String[] args) {
 		
-		int max = 0;
 		Scanner input = new Scanner(System.in);
+		System.out.println("NOTE: If polynomial, write in this form: A B C, which is Ax^2 + Bx + C");
 		System.out.println("Equation: y = ");
 		String equation = input.nextLine();
 		System.out.println("Start Value: x = ");
@@ -21,11 +21,11 @@ public class graphingcalc extends JFrame{
 		int endVal = Integer.parseInt(end);
 		for(int i = startVal ; i<=endVal;i++) {
 			coordinates.add(calculate(equation,i));
-			max = findMax(coordinates);
+
 			System.out.println(calculate(equation,i));
 		}		
 //		System.out.println(max);
-		graphingcalc c = new graphingcalc(max);
+		graphingcalc c = new graphingcalc();
 	}
 	
 	
@@ -36,7 +36,7 @@ public class graphingcalc extends JFrame{
 		double x = value;
 		double y = 0;
 		Point p = new Point();
-		if(!equation.contains("^")) {
+		if(equation.contains("x")) { //linear
 			if(equation.contains("+")) {
 				try {
 				slope = Double.parseDouble(equation.substring(0, equation.indexOf("x")));
@@ -69,39 +69,59 @@ public class graphingcalc extends JFrame{
 			y = slope*x + yint;
 			p.setLocation((int)x,(int)y);
 		}
-		else {
-			if(equation.contains("+")) {
-				try {
-					slope = Double.parseDouble(equation.substring(0, equation.indexOf("x")));
-					}catch(Exception e) {
-						slope = 1;
-					}
-				yint = Integer.parseInt(equation.substring(equation.indexOf("+")+2, equation.length()));
-				power = Double.parseDouble(equation.substring(equation.indexOf("^")+1, equation.indexOf("+")-1));
-//				System.out.println("slope: "+slope+"yint: "+yint+"power: "+power);
-			}
-			else if(equation.contains("-")) {
-				try {
-				slope = Double.parseDouble(equation.substring(0, equation.indexOf("x")));
-				}catch(Exception e) {
-					slope = 1;
+		else { //polynomial
+//			if(equation.contains("+")) {
+//				try {
+//					slope = Double.parseDouble(equation.substring(0, equation.indexOf("x")));
+//					}catch(Exception e) {
+//						slope = 1;
+//					}
+//				yint = Integer.parseInt(equation.substring(equation.indexOf("+")+2, equation.length()));
+//				power = Double.parseDouble(equation.substring(equation.indexOf("^")+1, equation.indexOf("+")-1));
+////				System.out.println("slope: "+slope+"yint: "+yint+"power: "+power);
+//			}
+//			else if(equation.contains("-")) {
+//				try {
+//				slope = Double.parseDouble(equation.substring(0, equation.indexOf("x")));
+//				}catch(Exception e) {
+//					slope = 1;
+//				}
+//				yint = Integer.parseInt(equation.substring(equation.indexOf("-")+2, equation.length()));
+//				yint*=-1;
+//				power = Double.parseDouble(equation.substring(equation.indexOf("^")+1, equation.indexOf("-")-1));
+////				System.out.println("slope: "+slope+"yint: "+yint+"power: "+power);
+//			
+//			}else {
+//				try {
+//					slope = Double.parseDouble(equation.substring(0, equation.indexOf("x")));
+//					}catch(Exception e) {
+//						slope = 1;
+//					}
+//				yint = 0;
+//				power = Double.parseDouble(equation.substring(equation.indexOf("^")+1, equation.length()));
+////				System.out.println("slope: "+slope+"yint: "+yint+"power: "+power);
+//			}
+//			y = slope*(Math.pow(x, power)) + yint;
+			int numSpaces = 0;
+			for(int i = 0;i<equation.length();i++) {
+				if(equation.charAt(i)==' ') {
+					numSpaces++;
 				}
-				yint = Integer.parseInt(equation.substring(equation.indexOf("-")+2, equation.length()));
-				yint*=-1;
-				power = Double.parseDouble(equation.substring(equation.indexOf("^")+1, equation.indexOf("-")-1));
-//				System.out.println("slope: "+slope+"yint: "+yint+"power: "+power);
-			
-			}else {
-				try {
-					slope = Double.parseDouble(equation.substring(0, equation.indexOf("x")));
-					}catch(Exception e) {
-						slope = 1;
-					}
-				yint = 0;
-				power = Double.parseDouble(equation.substring(equation.indexOf("^")+1, equation.length()));
-//				System.out.println("slope: "+slope+"yint: "+yint+"power: "+power);
 			}
-			y = slope*(Math.pow(x, power)) + yint;
+			if(numSpaces==2) {
+				int a = Integer.parseInt(equation.substring(0,1));
+				int b = Integer.parseInt(equation.substring(2,3));
+				int c = Integer.parseInt(equation.substring(4,5));
+				y = (int)(a*Math.pow(x, 2) + b*Math.pow(x, 1) + c);
+			}
+			else {
+				int a = Integer.parseInt(equation.substring(0,1));
+				int b = Integer.parseInt(equation.substring(2,3));
+				int c = Integer.parseInt(equation.substring(4,5));
+				int d = Integer.parseInt(equation.substring(6,7));
+				y = (int)(a*Math.pow(x, 3) + b*Math.pow(x, 2) + c*Math.pow(x, 1)+d);
+			}
+			
 			p.setLocation((int)x,(int)y);
 		}
 		return p;
@@ -116,7 +136,7 @@ public class graphingcalc extends JFrame{
 		}
 		return max;
 	}
-	public graphingcalc(int y) {
+	public graphingcalc() {
 		setTitle("Graph"); 
 		setSize(1000,1000);
 		setVisible(true);
@@ -159,14 +179,14 @@ public class graphingcalc extends JFrame{
 			g.drawLine((int)newCoordinates.get(i).getX(), (int)newCoordinates.get(i).getY(), (int)newCoordinates.get(i+1).getX(), (int)newCoordinates.get(i+1).getY());
 			//			g.drawLine((int)(coordinates.get(i).getX()*scaleX)-minX, 1000-(int)((coordinates.get(i).getY())*scaleY), (int)(coordinates.get(i+1).getX()*scaleX)-minX, 1000-(int)((coordinates.get(i+1).getY())*scaleY));
 		}
-		for(int i = 0; i<coordinates.size();i++) {
-			g.drawLine((int)newCoordinates.get(i).getX(), 0, (int)newCoordinates.get(i).getX(), 1000);
-					
-		}
-		for(int i = 0; i<coordinates.size();i++) {
-			g.drawLine(0, (int)newCoordinates.get(i).getY(), 1000, (int)newCoordinates.get(i).getY());
-					
-		}
+//		for(int i = 0; i<coordinates.size();i++) {
+//			g.drawLine((int)newCoordinates.get(i).getX(), 0, (int)newCoordinates.get(i).getX(), 1000);
+//					
+//		}
+//		for(int i = 0; i<coordinates.size();i++) {
+//			g.drawLine(0, (int)newCoordinates.get(i).getY(), 1000, (int)newCoordinates.get(i).getY());
+//					
+//		}
 		
 		
 	}
